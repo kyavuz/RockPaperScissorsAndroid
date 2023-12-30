@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</RelativeLayout>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Button
+        android:text="Rock"
+        android:layout_width="300px"
+        android:layout_height="150px"
+        android:layout_gravity="start|bottom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/RockSelect" />
+
+    <Button
+        android:text="Paper"
+        android:layout_width="300px"
+        android:layout_height="150px"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/PaperSelect" />
+
+    <Button
+        android:text="Scissors"
+        android:layout_width="300px"
+        android:layout_height="150px"
+        android:layout_gravity="end|bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/ScissorsSelect" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
