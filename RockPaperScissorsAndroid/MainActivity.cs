@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -15,6 +16,7 @@ namespace RockPaperScissorsAndroid
         private string image;
         private string gameChoice;
         private ImageView GameSelectionView;
+        private ImageView WinLoseStatusView;
         private Button RockSelectButton;
         private Button PaperSelectButton;
         private Button ScissorsSelectButton;
@@ -26,8 +28,9 @@ namespace RockPaperScissorsAndroid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            // get "GameSelectionView" ID
+            // get ImageView IDs
             GameSelectionView = FindViewById<ImageView>(Resource.Id.GameSelectionView);
+            WinLoseStatusView = FindViewById<ImageView>(Resource.Id.WinLoseStatusView);
 
             // get button IDs
             RockSelectButton = FindViewById<Button>(Resource.Id.RockSelectButton);
@@ -38,6 +41,24 @@ namespace RockPaperScissorsAndroid
             ScissorsSelectButton.Click += ScissorsSelectClicked;
         }
 
+        static async Task WaitForDelayAsync(int milliseconds)
+        {
+            await Task.Run(() => Task.Delay(milliseconds));
+        }
+
+        private async Task rollingDice()
+        {
+            WinLoseStatusView.SetImageResource(Resource.Drawable.empty);
+            for (int i = 0; i<2; i++)
+            {
+                GameSelectionView.SetImageResource(Resource.Drawable.rock);
+                await WaitForDelayAsync(200);
+                GameSelectionView.SetImageResource(Resource.Drawable.paper);
+                await WaitForDelayAsync(200);
+                GameSelectionView.SetImageResource(Resource.Drawable.scissors);
+                await WaitForDelayAsync(200);
+            }
+        }
         private string getGameChoice(object sender, EventArgs e)
         {
             Random random = new Random();
@@ -67,22 +88,46 @@ namespace RockPaperScissorsAndroid
             return image;
         }
 
-        private void RockSelectClicked(object sender, EventArgs e)
+        private void DetermineWinner(string userChoice, string gameChoice)
         {
-            gameChoice = getGameChoice(sender, e);
-            //DetermineWinner(userChoice, computerChoice);
+            if (userChoice == gameChoice)
+            {
+                // "It's a tie!"
+                WinLoseStatusView.SetImageResource(Resource.Drawable.tie);
+            }
+            else if ((userChoice == "rock" && gameChoice == "scissors") ||
+                     (userChoice == "paper" && gameChoice == "rock") ||
+                     (userChoice == "scissors" && gameChoice == "paper"))
+            {
+                // "The user wins!"
+                WinLoseStatusView.SetImageResource(Resource.Drawable.win);
+            }
+            else
+            {
+                // "The user loses!"
+                WinLoseStatusView.SetImageResource(Resource.Drawable.lose);
+            }
         }
 
-        private void PaperSelectClicked(object sender, EventArgs e)
+        private async void RockSelectClicked(object sender, EventArgs e)
         {
+            await rollingDice();
             gameChoice = getGameChoice(sender, e);
-            //DetermineWinner(userChoice, computerChoice);
+            DetermineWinner("rock", gameChoice);
         }
 
-        private void ScissorsSelectClicked(object sender, EventArgs e)
+        private async void PaperSelectClicked(object sender, EventArgs e)
         {
+            await rollingDice();
             gameChoice = getGameChoice(sender, e);
-            //DetermineWinner(userChoice, computerChoice);
+            DetermineWinner("paper", gameChoice);
+        }
+
+        private async void ScissorsSelectClicked(object sender, EventArgs e)
+        {
+            await rollingDice();
+            gameChoice = getGameChoice(sender, e);
+            DetermineWinner("scissors", gameChoice);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
