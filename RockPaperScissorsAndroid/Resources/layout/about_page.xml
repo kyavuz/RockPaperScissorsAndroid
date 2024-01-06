@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="#170A28"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:src="@drawable/companyLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="600px"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dp"
+        android:id="@+id/companyLogoView" />
+    <ImageView
+        android:src="@drawable/gameLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="200px"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="270dp"
+        android:id="@+id/gameLogoView" />
+    <ImageView
+        android:src="@drawable/homePage"
+        android:layout_width="wrap_content"
+        android:layout_height="150px"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="340dp"
+        android:id="@+id/gameNameView" />
+    <TextView
+        android:text="@string/about_text"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:id="@+id/aboutText" />
+    <TextView
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="60dp"
+        android:autoLink="email"
+        android:text="Contact us : starlightstudios@gmail.com"
+        android:id="@+id/emailTextView" />
+    <TextView
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/VersionTextView" />
+    <TextView
+        android:text="@string/copyright_text"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/copyrightTextView" />
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
