@@ -50,5 +50,14 @@
         android:layout_gravity="center|top"
         android:layout_marginTop="90dp"
         android:id="@+id/WinLoseStatusView" />
+    <Button
+        android:text="About"
+        android:layout_width="300px"
+        android:layout_height="150px"
+        android:layout_gravity="start|top"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/AboutButton"
+        android:onClick="NavigateToAboutPage" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

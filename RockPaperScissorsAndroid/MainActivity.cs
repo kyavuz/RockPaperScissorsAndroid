@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
@@ -15,17 +16,22 @@ namespace RockPaperScissorsAndroid
         private int randomIndex;
         private string image;
         private string gameChoice;
+        private string pageName = "activity_main";
         private ImageView GameSelectionView;
         private ImageView WinLoseStatusView;
         private Button RockSelectButton;
         private Button PaperSelectButton;
         private Button ScissorsSelectButton;
+        private Button AboutButton;
+        private TextView VersionTextView;
+        private TextView emailTextView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            // Set our view from the "main" layout resource
+
+            // Set our view from the "activity_main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
             // get ImageView IDs
@@ -39,6 +45,26 @@ namespace RockPaperScissorsAndroid
             PaperSelectButton.Click += PaperSelectClicked;
             ScissorsSelectButton = FindViewById<Button>(Resource.Id.ScissorsSelectButton);
             ScissorsSelectButton.Click += ScissorsSelectClicked;
+            AboutButton = FindViewById<Button>(Resource.Id.AboutButton);
+            AboutButton.Click += NavigateToAboutPage;
+        }
+
+        public override void OnBackPressed()
+        {
+            // if back button pressed, go back to main page (activity_main.xml)
+            if (pageName!="activity_main") {
+                // If it's not on the main page
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+                pageName = "activity_main";
+            }
+            else { // If on activity_main, finish all activities and exit the application
+                // Add a check to prevent multiple calls to FinishAffinity()
+                if (!IsDestroyed)
+                {
+                    FinishAffinity();
+                }
+            }
         }
 
         static async Task WaitForDelayAsync(int milliseconds)
@@ -128,6 +154,44 @@ namespace RockPaperScissorsAndroid
             await rollingDice();
             gameChoice = getGameChoice(sender, e);
             DetermineWinner("scissors", gameChoice);
+        }
+
+        private void ComposeEmail(string[] addresses, string subject, string body)
+        {
+            var emailIntent = new Intent(Intent.ActionSendto);
+            emailIntent.SetData(Android.Net.Uri.Parse("mailto:"));
+            emailIntent.PutExtra(Intent.ExtraEmail, addresses);
+            emailIntent.PutExtra(Intent.ExtraSubject, subject);
+            emailIntent.PutExtra(Intent.ExtraText, body);
+
+            if (emailIntent.ResolveActivity(PackageManager) != null)
+            {
+                StartActivity(emailIntent);
+            }
+        }
+
+        private void NavigateToAboutPage(object sender, EventArgs e)
+        {
+            // Set our view from the "about" layout resource
+            SetContentView(Resource.Layout.about_page);
+            pageName = "about_page";
+
+            // get TextView IDs
+            VersionTextView = FindViewById<TextView>(Resource.Id.VersionTextView);
+            emailTextView = FindViewById<TextView>(Resource.Id.emailTextView);
+
+            // display version number
+            var packageInfo = PackageManager.GetPackageInfo(PackageName, 0);
+            var versionName = packageInfo.VersionName;
+            VersionTextView.Text = "Version: " + versionName;
+
+
+            // contact us
+            emailTextView.Click += (sender, e) =>
+            {
+                string emailAddress = emailTextView.Text;
+                ComposeEmail(new[] { emailAddress }, "Subject", "Body");
+            };
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
