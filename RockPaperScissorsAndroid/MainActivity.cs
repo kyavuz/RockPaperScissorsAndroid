@@ -34,6 +34,9 @@ namespace RockPaperScissorsAndroid
             // Set our view from the "activity_main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
+            // Prevent switching to horizontal mode (force to portrait mode)
+            RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+
             // get ImageView IDs
             GameSelectionView = FindViewById<ImageView>(Resource.Id.GameSelectionView);
             WinLoseStatusView = FindViewById<ImageView>(Resource.Id.WinLoseStatusView);
