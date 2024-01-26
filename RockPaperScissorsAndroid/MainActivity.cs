@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -9,7 +10,23 @@ using AndroidX.AppCompat.App;
 
 namespace RockPaperScissorsAndroid
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/SplashTheme", MainLauncher = true, NoHistory = true)]
+    public class SplashActivity : AppCompatActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Set our view from the "activity_main" layout resource
+            SetContentView(Resource.Layout.about_page);
+
+            Thread.Sleep(500);
+            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            FinishAffinity(); // close Splash screen
+        }
+    }
+
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false, NoHistory = false)]
     public class MainActivity : AppCompatActivity
     {
         private string[] images = { "rock", "paper", "scissors" };
@@ -29,6 +46,17 @@ namespace RockPaperScissorsAndroid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            //Thread.Sleep(1000);
+            //StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            //Finish();
+
+
+            //SetContentView(Resource.Drawable.splash_screen);
+            //Thread.Sleep(1000);
+            //StartActivity(typeof(AppCompatActivity));
+
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             // Set our view from the "activity_main" layout resource
