@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="#170A28"
+        android:background="@color/aboutpage_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <ImageView
@@ -46,7 +46,7 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="60dp"
         android:autoLink="email"
-        android:text="Contact us : starlightstudios@gmail.com"
+        android:text="Contact us : starlightstudiosgaming@gmail.com"
         android:id="@+id/emailTextView" />
     <TextView
         android:textSize="12sp"
