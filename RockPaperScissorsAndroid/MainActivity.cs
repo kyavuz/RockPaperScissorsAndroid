@@ -34,6 +34,7 @@ namespace RockPaperScissorsAndroid
         private string image;
         private string gameChoice;
         private string pageName = "activity_main";
+        private bool isButtonClicked = false;
         private ImageView GameSelectionView;
         private ImageView WinLoseStatusView;
         private Button RockSelectButton;
@@ -168,23 +169,38 @@ namespace RockPaperScissorsAndroid
 
         private async void RockSelectClicked(object sender, EventArgs e)
         {
-            await rollingDice();
-            gameChoice = getGameChoice(sender, e);
-            DetermineWinner("rock", gameChoice);
+            if (!isButtonClicked)
+            {
+                isButtonClicked = true;
+                await rollingDice();
+                gameChoice = getGameChoice(sender, e);
+                DetermineWinner("rock", gameChoice);
+                isButtonClicked = false;
+            }
         }
 
         private async void PaperSelectClicked(object sender, EventArgs e)
         {
-            await rollingDice();
-            gameChoice = getGameChoice(sender, e);
-            DetermineWinner("paper", gameChoice);
+            if (!isButtonClicked)
+            {
+                isButtonClicked = true;
+                await rollingDice();
+                gameChoice = getGameChoice(sender, e);
+                DetermineWinner("paper", gameChoice);
+                isButtonClicked = false;
+            }
         }
 
         private async void ScissorsSelectClicked(object sender, EventArgs e)
         {
-            await rollingDice();
-            gameChoice = getGameChoice(sender, e);
-            DetermineWinner("scissors", gameChoice);
+            if (!isButtonClicked)
+            {
+                isButtonClicked = true;
+                await rollingDice();
+                gameChoice = getGameChoice(sender, e);
+                DetermineWinner("scissors", gameChoice);
+                isButtonClicked = false;
+            }
         }
 
         private void ComposeEmail(string[] addresses, string subject, string body)
