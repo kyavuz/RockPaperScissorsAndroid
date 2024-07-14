@@ -32,6 +32,15 @@ On the About page, you can click the email address to compose an email.
 
 # Screenshots
 
+<table>
+  <tr>
+    <td><img src="Screenshots/1.jpg" width="200"></td>
+    <td><img src="Screenshots/2.jpg" width="200"></td>
+    <td><img src="Screenshots/3.jpg" width="200"></td>
+    <td><img src="Screenshots/4.jpg" width="200"></td>
+    <td><img src="Screenshots/5.jpg" width="200"></td>
+  </tr>
+</table>
 
 #
 
